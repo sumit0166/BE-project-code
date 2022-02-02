@@ -230,6 +230,27 @@ function main(data){
       var days = diffDays- (weeks*7);
       console.log(date1,date2);
 
+      function setImage(){
+        $.get("./test.php", function(data, status){
+          
+          const div = document.createElement("div");
+          div.classList.add("carousel-item");
+
+          const img = document.createElement("img");
+          img.classList.add("d-block");
+          img.classList.add("w-100");
+
+          const div2 = document.createElement("div");
+          div2.classList.add("carousel-item");
+
+          document.getElementById("image-cont").appendChild(div);
+          
+
+
+          });
+      }
+
+      setImage()
       // ------------------ Weeks part -------------------------------
 
       // if(String(date1) != String(date2)) {

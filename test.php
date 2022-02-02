@@ -1,108 +1,117 @@
 <?php 
 include("database_connect.php");
 
-$table1 = 'gen1';
-$table2 = 'gen2';
-
-$whole = array();
 $ary = array();
-$ary1 = array();
-$ary2 = array();
-
-$test = mysqli_query($conn,"select * from gen_data where gen_name='".$table1."'");
-while ($row = mysqli_fetch_assoc($test)) {
+$query = mysqli_query($conn,"select * from photos");
+while ($row = mysqli_fetch_assoc($query)) {
     $ary[] = $row;
 }
-array_push($whole,$ary);
-
-$ary =[];
-$test = mysqli_query($conn,"select * from gen_data where gen_name='".$table2."'");
-while ($row = mysqli_fetch_assoc($test)) {
-    $ary[] = $row;
-}
-array_push($whole,$ary);
+echo json_encode($ary);
 
 
-$ary =[];
-$ary1 =[];
-$ary2 =[];
 
-$test = mysqli_query($conn,"select * from ".$table1." group by date");
-while ($row = mysqli_fetch_assoc($test)) {
-    $ary1[] = $row;
-}
-array_push($ary,$ary1);
+// $table1 = 'gen1';
+// $table2 = 'gen2';
 
-$test = mysqli_query($conn,"select count(*)as days from (select * from ".$table1." group by date)dt");
-while ($row = mysqli_fetch_assoc($test)) {
+// $whole = array();
+// $ary = array();
+// $ary1 = array();
+// $ary2 = array();
+
+// $test = mysqli_query($conn,"select * from gen_data where gen_name='".$table1."'");
+// while ($row = mysqli_fetch_assoc($test)) {
+//     $ary[] = $row;
+// }
+// array_push($whole,$ary);
+
+// $ary =[];
+// $test = mysqli_query($conn,"select * from gen_data where gen_name='".$table2."'");
+// while ($row = mysqli_fetch_assoc($test)) {
+//     $ary[] = $row;
+// }
+// array_push($whole,$ary);
+
+
+// $ary =[];
+// $ary1 =[];
+// $ary2 =[];
+
+// $test = mysqli_query($conn,"select * from ".$table1." group by date");
+// while ($row = mysqli_fetch_assoc($test)) {
+//     $ary1[] = $row;
+// }
+// array_push($ary,$ary1);
+
+// $test = mysqli_query($conn,"select count(*)as days from (select * from ".$table1." group by date)dt");
+// while ($row = mysqli_fetch_assoc($test)) {
     
-    array_push($ary,$row);
+//     array_push($ary,$row);
 
-}
+// }
 
-// array_push($ary,$ary2);
+// // array_push($ary,$ary2);
 
-array_push($whole,$ary);
-
-
+// array_push($whole,$ary);
 
 
-$ary =[];
-$ary1 =[];
-$ary2 =[];
-
-$test = mysqli_query($conn,"select * from ".$table2." group by date");
-while ($row = mysqli_fetch_assoc($test)) {
-    $ary1[] = $row;
-}
-array_push($ary,$ary1);
-
-$test = mysqli_query($conn,"select count(*)as days from (select * from ".$table2." group by date)dt");
-while ($row = mysqli_fetch_assoc($test)) {
-
-    array_push($ary,$row);
-}
-// array_push($ary,$ary2);
-
-array_push($whole,$ary);
 
 
-$ary = [];
-$all = mysqli_query($conn,"select ROUND(AVG(room_temp)) as avgTemp,
-ROUND(AVG(humidity)) as avgHumid,
-ROUND(AVG(moisture)) as avgMoist,
-ROUND(AVG(light)) as avgLight,
-ROUND(MAX(room_temp)) as maxTemp,
-ROUND(MAX(humidity)) as maxHumid,
-ROUND(MAX(moisture)) as maxMoist,
-ROUND(MAX(light)) as maxLight,
-ROUND(MIN(room_temp)) as minTemp,
-ROUND(MIN(humidity)) as minHumid,
-ROUND(MIN(moisture)) as minMoist,
-ROUND(MIN(light)) as minLight from ".$table1);
-while($row = mysqli_fetch_assoc($all)){
-    array_push($whole,$row);
-}
+// $ary =[];
+// $ary1 =[];
+// $ary2 =[];
 
-$ary = [];
-$all = mysqli_query($conn,"select ROUND(AVG(room_temp)) as avgTemp,
-ROUND(AVG(humidity)) as avgHumid,
-ROUND(AVG(moisture)) as avgMoist,
-ROUND(AVG(light)) as avgLight,
-ROUND(MAX(room_temp)) as maxTemp,
-ROUND(MAX(humidity)) as maxHumid,
-ROUND(MAX(moisture)) as maxMoist,
-ROUND(MAX(light)) as maxLight,
-ROUND(MIN(room_temp)) as minTemp,
-ROUND(MIN(humidity)) as minHumid,
-ROUND(MIN(moisture)) as minMoist,
-ROUND(MIN(light)) as minLight from ".$table2);
-while($row = mysqli_fetch_assoc($all)){
-    array_push($whole,$row);
-}
+// $test = mysqli_query($conn,"select * from ".$table2." group by date");
+// while ($row = mysqli_fetch_assoc($test)) {
+//     $ary1[] = $row;
+// }
+// array_push($ary,$ary1);
+
+// $test = mysqli_query($conn,"select count(*)as days from (select * from ".$table2." group by date)dt");
+// while ($row = mysqli_fetch_assoc($test)) {
+
+//     array_push($ary,$row);
+// }
+// // array_push($ary,$ary2);
+
+// array_push($whole,$ary);
 
 
-echo json_encode($whole);
+// $ary = [];
+// $all = mysqli_query($conn,"select ROUND(AVG(room_temp)) as avgTemp,
+// ROUND(AVG(humidity)) as avgHumid,
+// ROUND(AVG(moisture)) as avgMoist,
+// ROUND(AVG(light)) as avgLight,
+// ROUND(MAX(room_temp)) as maxTemp,
+// ROUND(MAX(humidity)) as maxHumid,
+// ROUND(MAX(moisture)) as maxMoist,
+// ROUND(MAX(light)) as maxLight,
+// ROUND(MIN(room_temp)) as minTemp,
+// ROUND(MIN(humidity)) as minHumid,
+// ROUND(MIN(moisture)) as minMoist,
+// ROUND(MIN(light)) as minLight from ".$table1);
+// while($row = mysqli_fetch_assoc($all)){
+//     array_push($whole,$row);
+// }
+
+// $ary = [];
+// $all = mysqli_query($conn,"select ROUND(AVG(room_temp)) as avgTemp,
+// ROUND(AVG(humidity)) as avgHumid,
+// ROUND(AVG(moisture)) as avgMoist,
+// ROUND(AVG(light)) as avgLight,
+// ROUND(MAX(room_temp)) as maxTemp,
+// ROUND(MAX(humidity)) as maxHumid,
+// ROUND(MAX(moisture)) as maxMoist,
+// ROUND(MAX(light)) as maxLight,
+// ROUND(MIN(room_temp)) as minTemp,
+// ROUND(MIN(humidity)) as minHumid,
+// ROUND(MIN(moisture)) as minMoist,
+// ROUND(MIN(light)) as minLight from ".$table2);
+// while($row = mysqli_fetch_assoc($all)){
+//     array_push($whole,$row);
+// }
+
+
+// echo json_encode($whole);
 
 
 
